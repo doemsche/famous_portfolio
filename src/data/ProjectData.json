@@ -1,0 +1,51 @@
+{
+   projects: [
+   {
+       id: 'Interaction Dynamic',
+       image: '/images/0.png'
+   },
+   {
+       id: 'VW The Future Car',
+       image: '/images/1.png'
+   },
+   {
+       id: 'Schnipselbuch',
+       image: '/images/2.png'
+   },
+   {
+       id: 'Software Visualization',
+       image: '/images/3.png'
+   },
+   {
+       id: 'Panorama Raum',
+       image: '/images/4.png'
+   },
+   {
+       id: 'Radio Zhagdak',
+       image: '/images/5.png'
+   },
+   {
+       id: 'Room Control',
+       image: '/images/6.png'
+   },
+   {
+       id: 'Digital Elements',
+       image: '/images/7.png'
+   },
+   {
+       id: 'Dynament',
+       image: '/images/8.png'
+   },
+   {
+       id: 'Web Clipper',
+       image: '/images/0.png'
+   }
+   ],
+   arrangements: [{
+      name: 'grid'
+   },{
+      name: 'circle'
+    },{
+      name: 'sphere'
+    }]
+};
