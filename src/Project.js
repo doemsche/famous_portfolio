@@ -23,7 +23,7 @@ function Project (data) {
 	this.el = new DOMElement(this)
               // .setProperty('lineHeight', '100px')
               .setProperty('font-size', '12px')
-              .setProperty('border', '1px solid #'+Math.floor(Math.random()*16777215).toString(16))
+              .setProperty('border', '1px solid #333')
               .setContent(html);
 
               this.position = new Position(this);
