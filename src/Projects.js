@@ -40,4 +40,79 @@ function Projects () {
 // subclass Node
 Projects.prototype = Object.create(Node.prototype);
 
+Projects.prototype.onReceive = function onReceive(type,ev){
+
+   var arrangement = ev.node.name;
+   switch(arrangement){
+        
+        case 'linear':
+            this.arrangeAsLinear();
+        break;        
+        case 'grid':
+            this.arrangeAsGrid();
+        break;        
+        case 'circle':
+            this.arrangeAsCircle();
+        break;
+        default:
+            console.log('arrangement has not been defined');
+
+   }
+};
+
+Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
+    if (this.current++ === 4) this.current = 0;
+
+    var spacing = 10;
+
+    var randomizePositionZ = 0;
+    var duration = 1000;
+    var curve = Curves.outElastic;
+
+    var row = 0;
+    var col = 0;
+    var dimension = (spacing + 80);
+
+    var bounds = [-(((dimension) * 3 / 2) - (dimension / 2)), -(((dimension) * 3 / 2) - (dimension / 2))];
+    for (var i = 0; i < this.projects.length; i++) {
+
+        var p = this.projects[i];
+        var polarity = Math.random() < 0.5 ? -1 : 1;
+
+        var x = bounds[0] + ((dimension) * col++);
+        var y = bounds[1] + ((dimension) * row);
+
+        var z = (randomizePositionZ) ? Math.floor(Math.random() * 80) * polarity : 0;
+        p.position.set(x, y, z, {
+            duration: i*10 + duration,
+            curve: curve
+        });
+        if (col >= 3) {
+            col = 0;
+            row++;
+        }
+    }
+};
+
+Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
+    var angle = 0;
+    var step = (2*Math.PI) / this.projects.length;
+    var radius = 150;
+
+    for(var i = 0; i < this.projects.length; i++) {
+        var p  = this.projects[i];
+        var x =radius * Math.cos(angle);
+        var y =radius * Math.sin(angle);
+        angle += step;
+        p.position.set(x, y,50,{duration:1000, curve: Curves.outElastic});
+    }
+};
+Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
+    var offset = -500;
+    for(var i = 0; i < this.projects.length; i++) {
+        var p = this.projects[i];
+        p.position.set(i * 110 +offset,0,i,{duration:1000, curve: Curves.outElastic});
+    }
+};
+
 module.exports = Projects;

@@ -15,7 +15,7 @@ function NavButton (obj) {
     // set the content of the element
     // to the target section.
     // initialize the buttons as off
-    this.addUIEvent('click');
+    this.addUIEvent('click', {name:'dominik'});
     this.el.setContent(obj.name)
        //note: we will remove this 'default' in the next step
        // .addClass('off')
@@ -33,9 +33,9 @@ NavButton.prototype.getName = function getName() {
     return this.name;
 };
 NavButton.prototype.onReceive = function onReceive (event, payload) {
-    if (event === 'changeArrangement') {
-        if(payload.to === this.getName()) this.on();
-        else this.off();
+    if(event === 'click'){
+        var options = payload;
+        this.emit('changeArrangement', options);
     }
 };
 

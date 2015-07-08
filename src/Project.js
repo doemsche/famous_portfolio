@@ -1,4 +1,5 @@
 var Node = require('famous/core/node');
+var PhysicsEngine = require('famous/physics/PhysicsEngine'); 
 
 var Align = require('famous/components/Align');
 var DOMElement = require('famous/dom-renderables/DOMElement');

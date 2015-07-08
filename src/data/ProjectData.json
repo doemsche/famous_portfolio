@@ -42,10 +42,10 @@
    }
    ],
    arrangements: [{
-      name: 'grid'
+      name: 'linear'
    },{
-      name: 'circle'
+      name: 'grid'
     },{
-      name: 'sphere'
+      name: 'circle'
     }]
 };
