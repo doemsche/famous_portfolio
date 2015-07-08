@@ -1,6 +1,6 @@
-
 var Node = require('famous/core/Node');
 var Project = require('./Project');
+var Settings = require('./Settings');
 var Node = require('famous/core/node');
 var Align = require('famous/components/Align');
 var projectData = require('./data/ProjectData');
@@ -19,7 +19,6 @@ function Projects () {
     var count = 0,
      	rows = 3,
      	cols=3;
-
     this.projects = [];
     for (var row = 0; row < rows; row++) {
         for (var col = 0; col < cols; col++) {
@@ -34,7 +33,35 @@ function Projects () {
         .setAlign(0.5, 0.5, 0.5)
         .setOrigin(0.5, 0.5, 0.5)
         .setPosition(0, 0, 300);
+
+    _makeSettings(this);
+
+    // debugger;
+    var resizeComponent = {
+        onSizeChange: function(x, y, z) {
+            // console.log(x)
+            if(x < 500){this.arrangeAsGrid()}
+            if(x > 700){this.arrangeAsCircle()}
+
+            //this.arrangeAsCircle()
+            // console.log(arguments)
+                // This will layout the dots whenever a resize occurs
+                //this.layoutDots([x, y, z])
+                // Size === [parent size, 20, parent size]
+            }.bind(this)
+    };
+
+    // this.addComponent(resizeComponent);
    
+}
+
+function _makeSettings(node){
+    node.addChild()
+        .setSizeMode('absolute', 'absolute')
+        .setAbsoluteSize(70, 100)
+        .setMountPoint(0,0.5)
+        .setAlign(0,0.5)
+        .addChild(new Settings());
 }
 
 // subclass Node
@@ -56,11 +83,11 @@ Projects.prototype.onReceive = function onReceive(type,ev){
         break;
         default:
             console.log('arrangement has not been defined');
-
    }
 };
 
 Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
+    this.projects.shuffle();
     if (this.current++ === 4) this.current = 0;
 
     var spacing = 10;
@@ -78,10 +105,10 @@ Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
 
         var p = this.projects[i];
         var polarity = Math.random() < 0.5 ? -1 : 1;
-
         var x = bounds[0] + ((dimension) * col++);
         var y = bounds[1] + ((dimension) * row);
-
+        console.log('x')
+        console.log(x)
         var z = (randomizePositionZ) ? Math.floor(Math.random() * 80) * polarity : 0;
         p.position.set(x, y, z, {
             duration: i*10 + duration,
@@ -95,6 +122,7 @@ Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
 };
 
 Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
+    this.projects.shuffle();
     var angle = 0;
     var step = (2*Math.PI) / this.projects.length;
     var radius = 150;
@@ -108,11 +136,25 @@ Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
     }
 };
 Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
-    var offset = -500;
+    this.projects.shuffle()
+    // debugger;
+    var width = window.innerWidth;
+    var offset = - (width / 2);
+
+
     for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
-        p.position.set(i * 110 +offset,0,i,{duration:1000, curve: Curves.outElastic});
+        var x = offset+120;
+        p.position.set(x+i*100,0,0,{duration:800, curve: Curves.outElastic});
+
     }
 };
+
+Array.prototype.shuffle = function shuffle(){
+
+    for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+    return this;
+
+}
 
 module.exports = Projects;
