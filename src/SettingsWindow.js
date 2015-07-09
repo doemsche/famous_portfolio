@@ -20,15 +20,39 @@ function SettingsWindow () {
                                              .setProperty('padding-left', '25px')
                                              .setProperty('position', 'fixed');
      this.position = new Position(this);
+     this.addUIEvent('click');
+     _addButtons.call(this);
 
 }
+
 
 // subclass Node
 SettingsWindow.prototype = Object.create(Node.prototype);
 
 
+function _addButtons(){
+
+     for(var i= 0; i < 9; i ++){
+          // debugger;
+          this.button = this.square.addChild();
+          this.button.setSizeMode('relative', 'relative','relative')
+          // this.button.setMountPoint(0.5,0.5,0.5)
+          // this.button.setPosition(i*10, i*10);
+
+          this.numEl = new DOMElement(this.button, {
+               classes:['button']
+          }).setContent(i).setProperty('color', 'white');
+     }
+     
+
+};
+
+SettingsWindow.prototype.click = function click(){
+
+};
+
 SettingsWindow.prototype.onMount = function onMount(){
-    this.setPosition(-1000, 0,0);
+    this.position.set(-1000, 0,0);
 };
 
 
@@ -37,7 +61,7 @@ SettingsWindow.prototype.show = function show(){
 };
 
 SettingsWindow.prototype.hide = function hide(){
-      this.position.set(-1000, 0,0, {duration: 500, curve:Curves.outElastic});
+      this.position.set(-1000, 0,0, {duration: 200, curve:Curves.inOutQuart});
 };
 
 
