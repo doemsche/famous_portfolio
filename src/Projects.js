@@ -87,13 +87,11 @@ function _bindEvents() {
 Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
-   if(type === 'keyup'){
-        debugger;
-        // return;
-   }
+   if(ev.node.eventTrigger == "SettingsButton"){
+    return;
+   };
    var arrangement = ev.node.name;
    switch(arrangement){
-        
         case 'linear':
             this.arrangeAsLinear();
         break;        
