@@ -87,8 +87,11 @@ function _bindEvents() {
 Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
-   if(ev.node.eventTrigger == "SettingsButton"){
-    return;
+   if(type === 'click' && ev.node.eventTrigger == 'SettingsButton'){
+    // debugger;
+    // console.log("knorrli")
+    this.addCrazyness();
+    // return;
    };
    var arrangement = ev.node.name;
    switch(arrangement){
@@ -102,6 +105,7 @@ Projects.prototype.onReceive = function onReceive(type,ev){
             this.arrangeAsCircle();
         break;
         default:
+            return;
             console.log('arrangement has not been defined');
    }
 };
@@ -169,6 +173,36 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
         p.position.set(x+i*100,0,0,{duration:800, curve: Curves.outElastic});
 
     }
+};
+
+Projects.prototype.addCrazyness = function addCrazyness(){
+     for(var i = 0; i < this.projects.length; i++) {
+        var p = this.projects[i];
+        p.setOrigin(0.5,0.5);
+        p.setMountPoint(.5,.5);
+        var spinner = new Spinner(p);
+    }
+
+}
+
+
+// Components define behavior.
+// Spinner is such a component. Attaching the custom Spinner component to a
+// Node rotates the node on a frame by frame basis.
+function Spinner(node) {
+    this.node = node;
+    this.factor = Math.random()/1000;
+    this.id = this.node.addComponent(this);
+    this.node.requestUpdate(this.id);
+}
+
+// The onUpdate method will be called on every frame.
+Spinner.prototype.onUpdate = function(time) {
+    // debugger;
+    this.node.setRotation(time*this.factor, -time*0.002, Math.PI / 4);
+
+    // We request an update from the node on the next frame.
+    this.node.requestUpdate(this.id);
 };
 
 Array.prototype.shuffle = function shuffle(){

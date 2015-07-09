@@ -30,7 +30,7 @@ SettingsWindow.prototype = Object.create(Node.prototype);
 
 
 function _addButtons(){
-     for(var i= 0; i < 9; i ++){
+     for(var i= 0; i < 1; i ++){
           this.addChild()
           .setSizeMode(1,1)
           .setPosition(50,i*25+50,301)
@@ -54,8 +54,8 @@ function SettingsButton(num){
 SettingsButton.prototype = Object.create(Node.prototype);
 
 
-SettingsWindow.prototype.click = function click(){
-
+SettingsButton.prototype.click = function click(){
+  // debugger;
 };
 
 SettingsWindow.prototype.onMount = function onMount(){
@@ -64,7 +64,7 @@ SettingsWindow.prototype.onMount = function onMount(){
 
 
 SettingsWindow.prototype.show = function show(){
-      this.position.set(0, 0,0, {duration: 500, curve:Curves.outElastic});
+      this.position.set(-200, 0,0, {duration: 500, curve:Curves.outElastic});
 };
 
 SettingsWindow.prototype.hide = function hide(){
