@@ -176,14 +176,30 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
 };
 
 Projects.prototype.addCrazyness = function addCrazyness(){
-     for(var i = 0; i < this.projects.length; i++) {
+    for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
-        p.setOrigin(0.5,0.5);
-        p.setMountPoint(.5,.5);
-        var spinner = new Spinner(p);
+        var zmover = new zMover(p);
     }
+    //  for(var i = 0; i < this.projects.length; i++) {
+    //     var p = this.projects[i];
+    //     p.setOrigin(0.5,0.5);
+    //     p.setMountPoint(.5,.5);
+    //     var spinner = new Spinner(p);
+    // }
 
 }
+
+function zMover(node){
+    this.node = node;
+    this.id = this.node.addComponent(this);
+    this.node.requestUpdate(this.id);
+}
+
+zMover.prototype.onUpdate = function(time){
+    // debugger
+    this.node.setPosition(this.node.getPosition()[0],this.node.getPosition()[1], -time*0.1);
+    this.node.requestUpdate(this.id);
+};
 
 
 // Components define behavior.
