@@ -1,6 +1,6 @@
 var Node = require('famous/core/Node');
 var Project = require('./Project');
-var Settings = require('./Settings');
+var SettingsWindow = require('./SettingsWindow');
 var Node = require('famous/core/node');
 var Align = require('famous/components/Align');
 var projectData = require('./data/ProjectData');
@@ -27,14 +27,15 @@ function Projects () {
             this.projects.push(project);
         }
     }
-
+    _bindEvents.call(this);
     this
         .setMountPoint(0.5, 0.5, 0.5)
         .setAlign(0.5, 0.5, 0.5)
         .setOrigin(0.5, 0.5, 0.5)
         .setPosition(0, 0, 300);
-
-    _makeSettings(this);
+        // debugger;
+    this.settingsWindow = new SettingsWindow();
+    _makeSettings.call(this);
 
     // debugger;
     var resizeComponent = {
@@ -55,20 +56,41 @@ function Projects () {
    
 }
 
-function _makeSettings(node){
-    node.addChild()
+function _makeSettings(){
+    // debugger;
+    this.addChild()
         .setSizeMode('absolute', 'absolute')
-        .setAbsoluteSize(70, 100)
-        .setMountPoint(0,0.5)
-        .setAlign(0,0.5)
-        .addChild(new Settings());
+        .setAbsoluteSize(300, 300)
+        .setMountPoint(0.5,0.5)
+        .setPosition(undefined,undefined,300)
+        .setAlign(0.5,0.5)
+        .addChild( this.settingsWindow );
+}
+
+function _bindEvents() {
+    this.addEventListener('keydown', function(e) {
+
+        if (e.keyCode === 39) {debugger;this.settingsWindow.hide()}//hide
+        if (e.keyCode === 37) {this.settingsWindow.show()}//show
+    }.bind(this));   
+}
+
+function _bindEvents() {
+   
+    window.addEventListener('keydown', function(e) {
+        if (e.keyCode === 39) {this.settingsWindow.show()}
+        if (e.keyCode === 37) {this.settingsWindow.hide()}
+    }.bind(this));
 }
 
 // subclass Node
 Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
-
+   if(type === 'keyup'){
+        debugger;
+        // return;
+   }
    var arrangement = ev.node.name;
    switch(arrangement){
         
@@ -85,6 +107,7 @@ Projects.prototype.onReceive = function onReceive(type,ev){
             console.log('arrangement has not been defined');
    }
 };
+
 
 Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
     this.projects.shuffle();
@@ -156,5 +179,7 @@ Array.prototype.shuffle = function shuffle(){
     return this;
 
 }
+
+
 
 module.exports = Projects;
