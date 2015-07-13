@@ -53,6 +53,14 @@ function Projects () {
             }.bind(this)
     };
 
+    this.current = 0;
+    // Dot layout -> Square layout -> Square layout with random Z
+    // -> Expanded square -> Square layout
+    this.spacing = [ +DOT_SIZE, -DOT_SIZE*3, 0, 20, 0 ];
+    this.randomizePositionZ = [ false, false, true, false, true ];
+    this.curve = [ Curves.outQuint, Curves.outElastic, Curves.inElastic, Curves.inOutEase, Curves.inBounce ];
+    this.duration = [ 700, 3000, 3000, 1000, 700 ];
+
     // this.addComponent(resizeComponent);
    
 }
@@ -112,7 +120,7 @@ Projects.prototype.onReceive = function onReceive(type,ev){
 
 Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
     this.projects.shuffle();
-    if (this.current++ === 4) this.current = 0;
+    // if (this.current++ === 4) this.current = 0;
 
     var spacing = 10;
 
@@ -172,12 +180,47 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
     }
 };
 
-Projects.prototype.addCraziness = function addCraziness(){
-    for(var i = 0; i < this.projects.length; i++) {
-        var p = this.projects[i];
+// Projects.prototype.addCraziness = function addCraziness(){
+//     for(var i = 0; i < this.projects.length; i++) {
         
+//         var p = this.projects[i];
+//         p.setOrigin(.5,.5,.5)
+//         p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+//     }
+// }
+
+
+Projects.prototype.addCraziness = function addCraziness() {
+
+    if (this.current++ === 4) this.current = 0;
+
+    var spacing = this.spacing[this.current];
+    var randomizePositionZ = this.randomizePositionZ[this.current];
+    var duration = this.duration[this.current];
+    var curve = this.curve[this.current];
+
+    var row = 0;
+    var col = 0;
+    var dimension = (spacing + DOT_SIZE);
+    var bounds = [-(((dimension) * 6 / 2) - (dimension / 2)), -(((dimension) * 6 / 2) - (dimension / 2))];
+
+    for (var i = 0; i < this.projects.length; i++) {
+        var p = this.projects[i];
+        var polarity = Math.random() < 0.5 ? -1 : 1;
+        var x = bounds[0] + ((dimension) * col++);
+        var y = bounds[1] + ((dimension) * row);
+        var z = (randomizePositionZ) ? Math.floor(Math.random() * 80) * polarity : 0;
+        p.position.set(x, y, z, {
+            duration: i*10 + duration,
+            curve: curve
+        });
+        p.addComponent( new Spinner(p) );
+        if (col >= 3) {
+            col = 0;
+            row++;
+        }
     }
-}
+};
 
 
 // Components define behavior.
