@@ -90,6 +90,7 @@ Projects.prototype = Object.create(Node.prototype);
 Projects.prototype.onReceive = function onReceive(type,ev){
    if(type === 'click' && ev.node.eventTrigger == 'SettingsButton'){
 
+    this.addCraziness();
     
     return;
    };
@@ -169,104 +170,12 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
         var p = this.projects[i];
         var x = offset+120;
         p.position.set(x+i*100,0,0,{duration:800, curve: Curves.outElastic});
-
     }
 };
 
-// Projects.prototype.addAnimationX = function addAnimationX(toggle){
-//     if(toggle){
-//         for(var i = 0; i < this.projects.length; i++) {
-//             var p = this.projects[i];
-//             p.setOrigin(.5,.5,.5)
-//             p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
-//             p.addComponent( new SpinnerX(p) );
-//         }
-//     }
-//     else {
-//         for(var i = 0; i < this.projects.length; i++) {
-//             var p = this.projects[i];
 
-//             p.removeComponent(p.getComponents()[5])
-//         }
-//     }
-// }
+Projects.prototype.addCraziness = function addCraziness(){
 
-// Projects.prototype.addAnimationXY = function addAnimationXY(toggle){
-//     if(toggle){
-//         for(var i = 0; i < this.projects.length; i++) {
-//             var p = this.projects[i];
-//             p.setOrigin(.5,.5,.5)
-//             p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
-//             p.addComponent( new SpinnerXY(p) );
-//         }
-//     }
-//     else {
-//         for(var i = 0; i < this.projects.length; i++) {
-//             var p = this.projects[i];
-
-//             p.removeComponent(p.getComponents()[5])
-//         }
-//     }
-// }
-
-// Projects.prototype.addAnimationXYZ = function addAnimationXYZ(toggle){
-//     if(toggle){
-//         for(var i = 0; i < this.projects.length; i++) {
-//             var p = this.projects[i];
-//             p.setOrigin(.5,.5,.5)
-//             p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
-//             p.addComponent( new SpinnerXYZ(p) );
-//         }
-//     }
-//     else {
-//         for(var i = 0; i < this.projects.length; i++) {
-//             var p = this.projects[i];
-
-//             p.removeComponent(p.getComponents()[5])
-//         }
-//     }
-// }
-
-
-
-function SpinnerX(node){
-    this.node = node;
-    this.id = this.node.addComponent(this);
-    this.node.requestUpdate(this.id);
-
-}
-
-SpinnerX.prototype.onUpdate = function(time){
-    var val = time /1000;
-    this.node.setRotation(val, 0, 0);
-    this.node.requestUpdate(this.id);
-}
-
-
-function SpinnerXY(node){
-    this.node = node;
-    this.id = this.node.addComponent(this);
-    this.node.requestUpdate(this.id);
-
-}
-
-SpinnerXY.prototype.onUpdate = function(time){
-    var val = time /1000;
-    this.node.setRotation(val, val, 0);
-    this.node.requestUpdate(this.id);
-}
-
-function SpinnerXYZ(node){
-    this.node = node;
-    this.id = this.node.addComponent(this);
-    this.node.requestUpdate(this.id);
-
-}
-
-SpinnerXYZ.prototype.onUpdate = function(time){
-    var val = time /1000;
-    this.node.setRotation(val, val, val);
-    this.node.requestUpdate(this.id);
 }
 
 
