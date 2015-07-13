@@ -89,18 +89,7 @@ Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
    if(type === 'click' && ev.node.eventTrigger == 'SettingsButton'){
-    var toggle = ev.node.action.active;
-    switch(ev.node.action.axis){
-        case 'X':
-            this.addAnimationX(toggle);
-        break;
-        case 'XY':
-            this.addAnimationXY(toggle);
-        break;
-        case 'XYZ':
-            this.addAnimationXYZ(toggle);
-        break;
-    }
+
     
     return;
    };
@@ -184,59 +173,59 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
     }
 };
 
-Projects.prototype.addAnimationX = function addAnimationX(toggle){
-    if(toggle){
-        for(var i = 0; i < this.projects.length; i++) {
-            var p = this.projects[i];
-            p.setOrigin(.5,.5,.5)
-            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
-            p.addComponent( new SpinnerX(p) );
-        }
-    }
-    else {
-        for(var i = 0; i < this.projects.length; i++) {
-            var p = this.projects[i];
+// Projects.prototype.addAnimationX = function addAnimationX(toggle){
+//     if(toggle){
+//         for(var i = 0; i < this.projects.length; i++) {
+//             var p = this.projects[i];
+//             p.setOrigin(.5,.5,.5)
+//             p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+//             p.addComponent( new SpinnerX(p) );
+//         }
+//     }
+//     else {
+//         for(var i = 0; i < this.projects.length; i++) {
+//             var p = this.projects[i];
 
-            p.removeComponent(p.getComponents()[5])
-        }
-    }
-}
+//             p.removeComponent(p.getComponents()[5])
+//         }
+//     }
+// }
 
-Projects.prototype.addAnimationXY = function addAnimationXY(toggle){
-    if(toggle){
-        for(var i = 0; i < this.projects.length; i++) {
-            var p = this.projects[i];
-            p.setOrigin(.5,.5,.5)
-            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
-            p.addComponent( new SpinnerXY(p) );
-        }
-    }
-    else {
-        for(var i = 0; i < this.projects.length; i++) {
-            var p = this.projects[i];
+// Projects.prototype.addAnimationXY = function addAnimationXY(toggle){
+//     if(toggle){
+//         for(var i = 0; i < this.projects.length; i++) {
+//             var p = this.projects[i];
+//             p.setOrigin(.5,.5,.5)
+//             p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+//             p.addComponent( new SpinnerXY(p) );
+//         }
+//     }
+//     else {
+//         for(var i = 0; i < this.projects.length; i++) {
+//             var p = this.projects[i];
 
-            p.removeComponent(p.getComponents()[5])
-        }
-    }
-}
+//             p.removeComponent(p.getComponents()[5])
+//         }
+//     }
+// }
 
-Projects.prototype.addAnimationXYZ = function addAnimationXYZ(toggle){
-    if(toggle){
-        for(var i = 0; i < this.projects.length; i++) {
-            var p = this.projects[i];
-            p.setOrigin(.5,.5,.5)
-            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
-            p.addComponent( new SpinnerXYZ(p) );
-        }
-    }
-    else {
-        for(var i = 0; i < this.projects.length; i++) {
-            var p = this.projects[i];
+// Projects.prototype.addAnimationXYZ = function addAnimationXYZ(toggle){
+//     if(toggle){
+//         for(var i = 0; i < this.projects.length; i++) {
+//             var p = this.projects[i];
+//             p.setOrigin(.5,.5,.5)
+//             p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+//             p.addComponent( new SpinnerXYZ(p) );
+//         }
+//     }
+//     else {
+//         for(var i = 0; i < this.projects.length; i++) {
+//             var p = this.projects[i];
 
-            p.removeComponent(p.getComponents()[5])
-        }
-    }
-}
+//             p.removeComponent(p.getComponents()[5])
+//         }
+//     }
+// }
 
 
 

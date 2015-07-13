@@ -31,8 +31,8 @@ SettingsWindow.prototype = Object.create(Node.prototype);
 
 
 function _addButtons(){
-    var labels = ['Rotate X', 'Rotate XY', 'Rotate XYZ'];
-     for(var i= 0; i < 3; i ++){
+    var labels = ['Add Craziness'];
+     for(var i= 0; i < 1; i ++){
           this.addChild()
           .setSizeMode(1,1)
           .setPosition(50,i*25+50,301)
@@ -43,14 +43,9 @@ function _addButtons(){
 
 function SettingsButton(num,label){
   Node.call(this);
- 
-  this.action = {
-    active: false,
-    axis: label.replace('Rotate ', '')
-  };
   this.addUIEvent('click');
   this.eventTrigger = 'SettingsButton';
-  var content = '<div style="color:white; line-height:30px;"><input style="width:13px; margin-left:10px; height:13px;" type="checkbox" name="vehicle" value="Bike">'+label+'</div><br/>';
+  var content = '<div style="color:white">'+label+'</div>';
   this.el = new  DOMElement(this).setContent(content);
 
 }
@@ -60,7 +55,7 @@ SettingsButton.prototype = Object.create(Node.prototype);
 
 SettingsButton.prototype.onReceive = function onReceive(event,payload){
   if(event === "click"){
-    this.action.active ? this.action.active = false : this.action.active = true;
+    
   }
 };
 
