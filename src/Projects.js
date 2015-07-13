@@ -15,6 +15,7 @@ var DOT_SIZE = 45;
 function Projects () {
     // subclass Node
     Node.call(this);
+    this.axis = [false,false,false];
     // object to store the buttons
     var count = 0,
      	rows = 3,
@@ -70,7 +71,7 @@ function _makeSettings(){
 function _bindEvents() {
     this.addEventListener('keydown', function(e) {
 
-        if (e.keyCode === 39) {debugger;this.settingsWindow.hide()}//hide
+        if (e.keyCode === 39) {this.settingsWindow.hide()}//hide
         if (e.keyCode === 37) {this.settingsWindow.show()}//show
     }.bind(this));   
 }
@@ -88,10 +89,20 @@ Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
    if(type === 'click' && ev.node.eventTrigger == 'SettingsButton'){
-    // debugger;
-    // console.log("knorrli")
-    this.addCrazyness();
-    // return;
+    var toggle = ev.node.action.active;
+    switch(ev.node.action.axis){
+        case 'X':
+            this.addAnimationX(toggle);
+        break;
+        case 'XY':
+            this.addAnimationXY(toggle);
+        break;
+        case 'XYZ':
+            this.addAnimationXYZ(toggle);
+        break;
+    }
+    
+    return;
    };
    var arrangement = ev.node.name;
    switch(arrangement){
@@ -132,8 +143,6 @@ Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
         var polarity = Math.random() < 0.5 ? -1 : 1;
         var x = bounds[0] + ((dimension) * col++);
         var y = bounds[1] + ((dimension) * row);
-        console.log('x')
-        console.log(x)
         var z = (randomizePositionZ) ? Math.floor(Math.random() * 80) * polarity : 0;
         p.position.set(x, y, z, {
             duration: i*10 + duration,
@@ -148,6 +157,7 @@ Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
 
 Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
     this.projects.shuffle();
+
     var angle = 0;
     var step = (2*Math.PI) / this.projects.length;
     var radius = 150;
@@ -162,10 +172,9 @@ Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
 };
 Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
     this.projects.shuffle()
-    // debugger;
+
     var width = window.innerWidth;
     var offset = - (width / 2);
-
 
     for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
@@ -175,51 +184,102 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
     }
 };
 
-Projects.prototype.addCrazyness = function addCrazyness(){
-    for(var i = 0; i < this.projects.length; i++) {
-        var p = this.projects[i];
-        var zmover = new zMover(p);
+Projects.prototype.addAnimationX = function addAnimationX(toggle){
+    if(toggle){
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+            p.setOrigin(.5,.5,.5)
+            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+            p.addComponent( new SpinnerX(p) );
+        }
     }
-    //  for(var i = 0; i < this.projects.length; i++) {
-    //     var p = this.projects[i];
-    //     p.setOrigin(0.5,0.5);
-    //     p.setMountPoint(.5,.5);
-    //     var spinner = new Spinner(p);
-    // }
+    else {
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
 
+            p.removeComponent(p.getComponents()[5])
+        }
+    }
 }
 
-function zMover(node){
+Projects.prototype.addAnimationXY = function addAnimationXY(toggle){
+    if(toggle){
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+            p.setOrigin(.5,.5,.5)
+            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+            p.addComponent( new SpinnerXY(p) );
+        }
+    }
+    else {
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+
+            p.removeComponent(p.getComponents()[5])
+        }
+    }
+}
+
+Projects.prototype.addAnimationXYZ = function addAnimationXYZ(toggle){
+    if(toggle){
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+            p.setOrigin(.5,.5,.5)
+            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+            p.addComponent( new SpinnerXYZ(p) );
+        }
+    }
+    else {
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+
+            p.removeComponent(p.getComponents()[5])
+        }
+    }
+}
+
+
+
+function SpinnerX(node){
     this.node = node;
     this.id = this.node.addComponent(this);
     this.node.requestUpdate(this.id);
+
 }
 
-zMover.prototype.onUpdate = function(time){
-    // debugger
-    this.node.setPosition(this.node.getPosition()[0],this.node.getPosition()[1], -time*0.1);
+SpinnerX.prototype.onUpdate = function(time){
+    var val = time /1000;
+    this.node.setRotation(val, 0, 0);
     this.node.requestUpdate(this.id);
-};
+}
 
 
-// Components define behavior.
-// Spinner is such a component. Attaching the custom Spinner component to a
-// Node rotates the node on a frame by frame basis.
-function Spinner(node) {
+function SpinnerXY(node){
     this.node = node;
-    this.factor = Math.random()/1000;
     this.id = this.node.addComponent(this);
     this.node.requestUpdate(this.id);
+
 }
 
-// The onUpdate method will be called on every frame.
-Spinner.prototype.onUpdate = function(time) {
-    // debugger;
-    this.node.setRotation(time*this.factor, -time*0.002, Math.PI / 4);
-
-    // We request an update from the node on the next frame.
+SpinnerXY.prototype.onUpdate = function(time){
+    var val = time /1000;
+    this.node.setRotation(val, val, 0);
     this.node.requestUpdate(this.id);
-};
+}
+
+function SpinnerXYZ(node){
+    this.node = node;
+    this.id = this.node.addComponent(this);
+    this.node.requestUpdate(this.id);
+
+}
+
+SpinnerXYZ.prototype.onUpdate = function(time){
+    var val = time /1000;
+    this.node.setRotation(val, val, val);
+    this.node.requestUpdate(this.id);
+}
+
 
 Array.prototype.shuffle = function shuffle(){
 

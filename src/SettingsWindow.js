@@ -3,6 +3,7 @@ var DOMElement = require('famous/dom-renderables/DOMElement');
 var KeyboardEvent = require('famous/dom-renderers/events/KeyboardEvent');
 var Position = require('famous/components/Position');
 var Curves = require('famous/transitions/Curves');
+var Vector3 = require('famous/math/Vec3');
 
 // the footer will hold the nav buttons
 function SettingsWindow () {
@@ -21,7 +22,6 @@ function SettingsWindow () {
                                              // .setProperty('position', 'fixed');
      this.position = new Position(this);
      _addButtons.call(this);
-
 }
 
 
@@ -29,33 +29,39 @@ function SettingsWindow () {
 SettingsWindow.prototype = Object.create(Node.prototype);
 
 
+
 function _addButtons(){
-     for(var i= 0; i < 1; i ++){
+    var labels = ['Rotate X', 'Rotate XY', 'Rotate XYZ'];
+     for(var i= 0; i < 3; i ++){
           this.addChild()
           .setSizeMode(1,1)
           .setPosition(50,i*25+50,301)
-          // .setMountPoint(0.5,0.5,0.5)
-          // .setAlign(undefined,0.5, undefined)
           .setAbsoluteSize(200, 20)
-          .addChild(new SettingsButton(i));
+          .addChild(new SettingsButton(i,labels[i]),this.axis);
      }
 };
 
-function SettingsButton(num){
+function SettingsButton(num,label){
   Node.call(this);
-  // debugger;
+ 
+  this.action = {
+    active: false,
+    axis: label.replace('Rotate ', '')
+  };
   this.addUIEvent('click');
   this.eventTrigger = 'SettingsButton';
-  this.el = new  DOMElement(this, {
-        classes: ['btn','btn-default']
-    }).setContent(num.toString()+'domini')//.setProperty('border-radius','45px');
+  var content = '<div style="color:white; line-height:30px;"><input style="width:13px; margin-left:10px; height:13px;" type="checkbox" name="vehicle" value="Bike">'+label+'</div><br/>';
+  this.el = new  DOMElement(this).setContent(content);
+
 }
 
 SettingsButton.prototype = Object.create(Node.prototype);
 
 
-SettingsButton.prototype.click = function click(){
-  // debugger;
+SettingsButton.prototype.onReceive = function onReceive(event,payload){
+  if(event === "click"){
+    this.action.active ? this.action.active = false : this.action.active = true;
+  }
 };
 
 SettingsWindow.prototype.onMount = function onMount(){

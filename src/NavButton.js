@@ -15,7 +15,7 @@ function NavButton (obj) {
     // set the content of the element
     // to the target section.
     // initialize the buttons as off
-    this.addUIEvent('click', {name:'dominik'});
+    this.addUIEvent('click');
     this.el.setContent(obj.name)
        //note: we will remove this 'default' in the next step
        // .addClass('off')
