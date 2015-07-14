@@ -45,7 +45,13 @@ function makeFooter (node) {
 // Extend the prototype
 Portfolio.prototype = Object.create(Node.prototype);
 Portfolio.prototype.onReceive = function onReceive(type,ev){
-    this.emit("changeArrangement", ev);
+    if(ev.node.eventTrigger == "NavButton"){
+        this.emit("changeArrangement", ev);
+    }
+    else if(ev.node.eventTrigger == "Project"){
+        
+    }
+    
 };
 // Twitterus.prototype.onReceive = function onReceive (event, payload) {
 //     // if the event is click then we know

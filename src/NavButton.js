@@ -8,7 +8,7 @@ function NavButton (obj) {
 
     // make and style an element
     this.el = makeEl(this);
-
+    this.eventTrigger = 'NavButton';
     // hold the id of the section
     // this NavButton points to.
     this.name = obj.name;

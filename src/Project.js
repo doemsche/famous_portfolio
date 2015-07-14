@@ -36,4 +36,14 @@ function Project (data) {
 // subclass Node
 Project.prototype = Object.create(Node.prototype);
 
+
+// Project.prototype.onReceive = function onReceive(type,ev){
+//   // debugger;
+//    if(ev.node.eventTrigger == "Project"){
+//     // debugger;
+//       this.emit('showDetail');
+//       return;
+//    }
+// };
+
 module.exports = Project;

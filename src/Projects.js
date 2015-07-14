@@ -1,5 +1,6 @@
 var Node = require('famous/core/Node');
 var Project = require('./Project');
+var ProjectDetail = require('./ProjectDetail');
 var SettingsWindow = require('./SettingsWindow');
 var Node = require('famous/core/node');
 var Align = require('famous/components/Align');
@@ -15,7 +16,6 @@ var DOT_SIZE = 45;
 function Projects () {
     // subclass Node
     Node.call(this);
-    this.axis = [false,false,false];
     // object to store the buttons
     var count = 0,
      	rows = 3,
@@ -37,7 +37,7 @@ function Projects () {
         // debugger;
     this.settingsWindow = new SettingsWindow();
     _makeSettings.call(this);
-
+    _makeDetail.call(this);
     // debugger;
     var resizeComponent = {
         onSizeChange: function(x, y, z) {
@@ -52,10 +52,11 @@ function Projects () {
                 // Size === [parent size, 20, parent size]
             }.bind(this)
     };
-
+   
     // this.addComponent(resizeComponent);
    
 }
+
 
 function _makeSettings(){
     // debugger;
@@ -67,6 +68,17 @@ function _makeSettings(){
         .setAlign(0.5,0.5)
         .addChild( this.settingsWindow );
 }
+
+function _makeDetail(){
+    this.projectDetail = new ProjectDetail('dominik');
+    this.addChild()
+        .setSizeMode('absolute', 'absolute')
+        .setAbsoluteSize(300, 300)
+        .setMountPoint(0.5,0.5)
+        .setPosition(undefined,undefined,300)
+        .setAlign(0.5,0.5)
+        .addChild( this.projectDetail);
+} 
 
 function _bindEvents() {
     this.addEventListener('keydown', function(e) {
@@ -88,6 +100,7 @@ function _bindEvents() {
 Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
+
    if(type === 'click' && ev.node.eventTrigger == 'SettingsButton'){
     var toggle = ev.node.action.active;
     switch(ev.node.action.type){
@@ -110,6 +123,14 @@ Projects.prototype.onReceive = function onReceive(type,ev){
     
     return;
    };
+   // debugger;
+   // if(type === 'click' && ev.node.eventTrigger === 'Project'){
+   //      var projectName = ev.node.trigger;
+   //      // debugger;
+   //      this.projectDetail.swapContent(projectName);
+   //      this.projectDetail.show();
+   //      return;
+   // }
    var arrangement = ev.node.name;
    switch(arrangement){
         case 'linear':
@@ -344,7 +365,7 @@ function GiantWheel(node,i){
 
     // this.centerX = 200;
     // this.centerY = 200; 
-    this.radius = 200;
+    this.radius = 130;
     this.speed = i*0.01/20+0.02;
     this.id = this.node.addComponent(this);
     this.node.requestUpdate(this.id);
