@@ -39,7 +39,7 @@ ProjectDetail.prototype.swapContent = function(name){
 
 ProjectDetail.prototype.show = function(){
   // debugger;
-  this.position.set(0,0,302,{duration:1000, curve:Curves.outElastic})
+  // this.position.set(0,0,302,{duration:1000, curve:Curves.outElastic})
 }
 
 module.exports = ProjectDetail;

@@ -1,7 +1,8 @@
 var Node = require('famous/core/Node');
 var DOMElement = require('famous/dom-renderables/DOMElement');
 var Align = require('famous/components/Align');
-
+var Position = require('famous/components/Position');
+var Curves = require('famous/transitions/Curves');
 function Header(){
 	Node.call(this);
 	this.el = new DOMElement(this, {
@@ -17,13 +18,16 @@ function Header(){
                                              .setProperty('text-shadow', '1px 1px #444')
                                              .setContent('Portfolio');
 
-
-
+    this.position = new Position(this);
+    this.position.set(0, -700,0)
     this.titleAlign = new Align(this.title);
 }
 
 Header.prototype = Object.create(Node.prototype);
 
+Header.prototype.extend = function extend(){
+    this.position.set(0,0,305, {duration:2300, curve: Curves.outElastic})
+};
 // Header.prototype.onReceive = function onReceive (event, payload) {
 //     if (event === 'changeSection') {
 //     	 this.changeSection(payload.to);

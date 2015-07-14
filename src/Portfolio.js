@@ -10,25 +10,28 @@ function Portfolio(mount) {
     Node.call(this);
     this.currentArrangement = 'linear';
 
-    makeHeader(this);
+    makeHeader.call(this);
     makeFooter(this);
-    makeSwapper(this);
+    makeProjects.call(this);
 }
 
-function makeHeader (node) {
+function makeHeader () {
     //child node extending from Twitterus
-   node.addChild()
+   this.header = new Header();
+   this.addChild()
         .setSizeMode('default', 'absolute')
-        .setAbsoluteSize(null, 100)
-        .addChild(new Header());
+        .setAbsoluteSize(null, 800)
+        // .setPosition(null,-700)
+        .addChild(this.header);
 }
 
 
-function makeSwapper (node) {
-    node.addChild()
+function makeProjects() {
+    this.projects = new Projects(projectData);
+    this.addChild()
         .setDifferentialSize(null, -200, null)
         .setPosition(0, 100)
-        .addChild(new Projects(projectData));
+        .addChild(this.projects);
 }
 
 function makeFooter (node) {
@@ -49,7 +52,9 @@ Portfolio.prototype.onReceive = function onReceive(type,ev){
         this.emit("changeArrangement", ev);
     }
     else if(ev.node.eventTrigger == "Project"){
-        
+        this.projects.setPosition(0,800,0);
+        this.header.extend();
+
     }
     
 };

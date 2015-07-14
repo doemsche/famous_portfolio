@@ -1,6 +1,6 @@
 var Node = require('famous/core/Node');
 var Project = require('./Project');
-var ProjectDetail = require('./ProjectDetail');
+// var ProjectDetail = require('./ProjectDetail');
 var SettingsWindow = require('./SettingsWindow');
 var Node = require('famous/core/node');
 var Align = require('famous/components/Align');
@@ -37,7 +37,7 @@ function Projects () {
         // debugger;
     this.settingsWindow = new SettingsWindow();
     _makeSettings.call(this);
-    _makeDetail.call(this);
+    // _makeDetail.call(this);
     // debugger;
     var resizeComponent = {
         onSizeChange: function(x, y, z) {
@@ -69,16 +69,16 @@ function _makeSettings(){
         .addChild( this.settingsWindow );
 }
 
-function _makeDetail(){
-    this.projectDetail = new ProjectDetail('dominik');
-    this.addChild()
-        .setSizeMode('absolute', 'absolute')
-        .setAbsoluteSize(300, 300)
-        .setMountPoint(0.5,0.5)
-        .setPosition(undefined,undefined,300)
-        .setAlign(0.5,0.5)
-        .addChild( this.projectDetail);
-} 
+// function _makeDetail(){
+//     this.projectDetail = new ProjectDetail('dominik');
+//     this.addChild()
+//         .setSizeMode('absolute', 'absolute')
+//         .setAbsoluteSize(300, 300)
+//         .setMountPoint(0.5,0.5)
+//         .setPosition(undefined,undefined,300)
+//         .setAlign(0.5,0.5)
+//         .addChild( this.projectDetail);
+// } 
 
 function _bindEvents() {
     this.addEventListener('keydown', function(e) {
