@@ -31,8 +31,8 @@ SettingsWindow.prototype = Object.create(Node.prototype);
 
 
 function _addButtons(){
-    var labels = ['Rotate X', 'Rotate XY', 'Rotate XYZ'];
-     for(var i= 0; i < 3; i ++){
+    var labels = ['X', 'XY', 'XYZ', 'Sine','GiantWheel'];
+     for(var i= 0; i < 5; i ++){
           this.addChild()
           .setSizeMode(1,1)
           .setPosition(50,i*25+50,301)
@@ -46,7 +46,7 @@ function SettingsButton(num,label){
  
   this.action = {
     active: false,
-    axis: label.replace('Rotate ', '')
+    type: label
   };
   this.addUIEvent('click');
   this.eventTrigger = 'SettingsButton';

@@ -90,7 +90,7 @@ Projects.prototype = Object.create(Node.prototype);
 Projects.prototype.onReceive = function onReceive(type,ev){
    if(type === 'click' && ev.node.eventTrigger == 'SettingsButton'){
     var toggle = ev.node.action.active;
-    switch(ev.node.action.axis){
+    switch(ev.node.action.type){
         case 'X':
             this.addAnimationX(toggle);
         break;
@@ -99,6 +99,12 @@ Projects.prototype.onReceive = function onReceive(type,ev){
         break;
         case 'XYZ':
             this.addAnimationXYZ(toggle);
+        break;
+        case 'Sine':
+            this.addAnimationSineWave(toggle);
+        break;
+        case 'GiantWheel':
+            this.addAnimationGiantWheel(toggle);
         break;
     }
     
@@ -172,13 +178,16 @@ Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
 };
 Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
     this.projects.shuffle()
-
-    var width = window.innerWidth;
+    // debugger;
+    var width =  window.innerWidth;
     var offset = - (width / 2);
 
     for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
-        var x = offset+120;
+        // p.setAlign(00.5,02
+        var x = offset+280;
+        // var x = 0;
+        console.log(x)
         p.position.set(x+i*100,0,0,{duration:800, curve: Curves.outElastic});
 
     }
@@ -238,6 +247,41 @@ Projects.prototype.addAnimationXYZ = function addAnimationXYZ(toggle){
     }
 }
 
+Projects.prototype.addAnimationSineWave = function addAnimationSineWave(toggle){
+    if(toggle){
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+            // p.setOrigin(.5,.5,.5)
+            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+            p.addComponent( new SineWaver(p,i) );
+        }
+    }
+    else {
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+
+            p.removeComponent(p.getComponents()[5])
+        }
+    }
+}
+Projects.prototype.addAnimationGiantWheel = function addAnimationGiantWheel(toggle){
+    if(toggle){
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+            // p.setOrigin(.5,.5,.5)
+            p.position.set(p.getPosition()[0],p.getPosition()[1],p.getPosition()[2])
+            p.addComponent( new GiantWheel(p,i) );
+        }
+    }
+    else {
+        for(var i = 0; i < this.projects.length; i++) {
+            var p = this.projects[i];
+
+            p.removeComponent(p.getComponents()[5])
+        }
+    }
+}
+
 
 
 function SpinnerX(node){
@@ -280,14 +324,47 @@ SpinnerXYZ.prototype.onUpdate = function(time){
     this.node.requestUpdate(this.id);
 }
 
+function SineWaver(node,i){
+    this.node = node;
+    this.angle = 0;
+    this.speed = i*2+.2;
+    this.id = this.node.addComponent(this);
+    this.node.requestUpdate(this.id);
+} 
 
-Array.prototype.shuffle = function shuffle(){
+SineWaver.prototype.onUpdate = function(time){
+    this.node.position.setY(Math.sin(this.angle)*this.speed);
+    this.angle += .1;
+    this.node.requestUpdate(this.id);
+};
 
-    for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
-    return this;
+function GiantWheel(node,i){
+    this.node = node;
+    this.angle = 0;
 
+    // this.centerX = 200;
+    // this.centerY = 200; 
+    this.radius = 200;
+    this.speed = i*0.01/20+0.02;
+    this.id = this.node.addComponent(this);
+    this.node.requestUpdate(this.id);
 }
 
+GiantWheel.prototype.onUpdate = function(time){
+    this.node.position.set(Math.sin(this.angle)*this.radius,+Math.cos(this.angle)*this.radius,0)
+    this.angle += this.speed;
+    this.node.requestUpdate(this.id);
+      // ball.x = centerX + Math.sin(angle) * radius;
+      //                 ball.y = centerY + Math.cos(angle) * radius;
+      //                 angle += speed;
+};
+
+
+
+Array.prototype.shuffle = function shuffle(){
+    for(var j, x, i = this.length; i; j = Math.floor(Math.random() * i), x = this[--i], this[i] = this[j], this[j] = x);
+    return this;
+}
 
 
 module.exports = Projects;
