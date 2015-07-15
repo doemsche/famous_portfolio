@@ -6,7 +6,9 @@
    },
    {
        id: 'VW The Future Car',
-       image: '/images/1.png'
+       image: '/images/1.png',
+       descr: 'description to future of the car',
+       author: 'Dominik Schlapefer'
    },
    {
        id: 'Schnipselbuch',

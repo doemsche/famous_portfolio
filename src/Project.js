@@ -11,6 +11,7 @@ var DOT_SIZE = 80;
 function Project (data) {
     // subclass Node
   Node.call(this);
+  this.data = data;
   this.trigger = data.id;
   this.eventTrigger = "Project";
 	var html = '<img src='+data.image+'></img>';

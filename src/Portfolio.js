@@ -48,12 +48,18 @@ function makeFooter (node) {
 // Extend the prototype
 Portfolio.prototype = Object.create(Node.prototype);
 Portfolio.prototype.onReceive = function onReceive(type,ev){
+    if(ev.node.eventTrigger == "Cancel"){
+        this.header.position.set(0,0,0,{duration:1000})
+        this.projects.setPosition(0,0,0)
+        return;
+    }
     if(ev.node.eventTrigger == "NavButton"){
         this.emit("changeArrangement", ev);
     }
     else if(ev.node.eventTrigger == "Project"){
+        var data = ev.node.data;
         this.projects.setPosition(0,800,0);
-        this.header.extend();
+        this.header.extend(data);
 
     }
     
