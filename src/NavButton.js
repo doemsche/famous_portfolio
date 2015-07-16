@@ -49,8 +49,8 @@ function makeEl (node) {
             cursor: 'pointer',
             backgroundColor: '#333',
             color: 'white'
-        },
-        classes: ['navigation']
+        }
+        // classes: ['navigation']
     });
 };
 

@@ -1,5 +1,6 @@
 var Node = require('famous/core/Node');
 var projectData = require('./data/ProjectData');
+var Curves = require('famous/transitions/Curves');
 
 var Header = require('./Header');
 var Footer = require('./Footer');
@@ -20,7 +21,6 @@ function makeHeader () {
    this.header = new Header();
    this.addChild()
         .setSizeMode('default', 'absolute')
-        .setAbsoluteSize(null, 800)
         // .setPosition(null,-700)
         .addChild(this.header);
 }
@@ -49,8 +49,11 @@ function makeFooter (node) {
 Portfolio.prototype = Object.create(Node.prototype);
 Portfolio.prototype.onReceive = function onReceive(type,ev){
     if(ev.node.eventTrigger == "Cancel"){
-        this.header.position.set(0,0,0,{duration:1000})
-        this.projects.setPosition(0,0,0)
+        this.header.title.removeChild(ev.node);
+        // delete this.header.cancelBtn;
+        this.header.position.set(0,-700,0,{duration:500,curve: Curves.outElastic});
+        this.projects.setPosition(0,0,0);
+        this.header.titleEl.setContent('Portfolio');
         return;
     }
     if(ev.node.eventTrigger == "NavButton"){
@@ -62,7 +65,6 @@ Portfolio.prototype.onReceive = function onReceive(type,ev){
         this.header.extend(data);
 
     }
-    
 };
 // Twitterus.prototype.onReceive = function onReceive (event, payload) {
 //     // if the event is click then we know

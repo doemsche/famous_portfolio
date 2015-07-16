@@ -1,47 +1,96 @@
 {
    projects: [
    {
-       id: 'Interaction Dynamic',
-       image: '/images/0.png'
-   },
-   {
-       id: 'VW The Future Car',
-       image: '/images/1.png',
-       descr: 'description to future of the car',
-       author: 'Dominik Schlapefer'
-   },
-   {
-       id: 'Schnipselbuch',
-       image: '/images/2.png'
-   },
-   {
        id: 'Software Visualization',
-       image: '/images/3.png'
+       image: '/images/0.png',
+       subtitle: "Visualization of <strong>Complexity</strong> by means of Software",
+       date: 2008,
+       author: "Dominik Schlaepfer, Balz Rittmeyer, Kai Jauslin",
+       coffee: "120 Cups",
+       pics: ['01.png','02.png','03.png'],
+       descr: "Aim of this project is the visualization of complex relations of items in big systems. Software code and Software architecture as a very abstract and very complex metaphor, oppose a good example to examine the benefits of visualization over pure code and alphanumerically written codes and metaphors. The visualization in the project is about method-calls in software projects. The main idea is to visualize a certain method-call and see what other methods are triggered by this call. The visualization takes part in a 3D-space, which enables the user to look at the method-call tree from different perspectives. The different perspectives provide different views and different conclusions to the method-call."
    },
    {
-       id: 'Panorama Raum',
-       image: '/images/4.png'
+       id: "Interaction Dynamics",
+       image: "/images/1.png",
+       subtitle: "Research new <strong>Interaction metaphors</strong>",
+       date: 2007,
+       author: "Dominik Schlaepfer",
+       coffee: "80 cups",
+       pics: [],
+       descr: "Interaction Dynamics is about examining interaction models. The task was to establish Interaction models to contradictory terms such as: big - small, many - few, inner - outer, visible - invisible.",
+
    },
-   {
-       id: 'Radio Zhagdak',
-       image: '/images/5.png'
+      {
+       id: "ZagHdk Radio",
+       image: "/images/1.png",
+       subtitle: "Interactive GPS <strong>Hearplay</strong>",
+       date: 2010,
+       author: "Dominik Schlaepfer, Lilian Kraus",
+       coffee: "132 cups",
+       pics: [],
+       descr: "Core-concept: ZagHdaK Radio is an interactive GPS hear-play created at ZHdK in October 2009. The main concept is to have a real physical space (in our case Zürich) in which a user can move around randomly.This physical reality is then overlayed by a second perception layer (in our case audio feedback) which is supposedto guide the user around in the physical reality and provide him with different audio information depending on thechosen way. ZagHdaK-Radio plays with contrasts between imagination and reality and extends awareness and perception. Concept realisation: As second perception layer the ZagHdaK-Radio concept features an imaginary setup of an unnamed city in the Middle East. This imaginary layer is invisibly mapped over the physical reality and represented by audio feedback. Certain predefined points on the reality layer trigger certain soundactions on the audio layer. Interactivityis provided by the way we move around and by the way approaching the predefined points. When strolling around far fromthe predefined points the user is provided with monotonous audio-heartbeat; when approaching a point, the heartbeat speedsup and finally, depending on distance to that point, triggers different sounds. Every point is accessible by differentstreets and depending on the route chosen, one approaches the point in another context (correspondingly different sound isplayed on the audio-layer). The predefined points and the corresponding soundfiles are arranged in a way that individualnarratives emerge when moving around. ZagHdaK radio is partly political since it talks about problematic tendencies inworld politics but does not consider itself as a purely political project; ZagHdaK radio features different approaches ofeveryday life in a middle eastern town. "
+
    },
-   {
-       id: 'Room Control',
-       image: '/images/6.png'
+      {
+       id: "The Future Car",
+       image: "/images/1.png",
+       subtitle: "How does the <strong>future car</strong> sound?",
+       date: 2010,
+       author: "Dominik Schlaepfer",
+       coffee: "100+",
+       descr: "This project is a cooperation project with Volkswagen. The topic is the future sound of cars. Volkswagen provided and Audi G5 equipped with sensors. These sensors fed a Pure Data patch with data. The patch again interpreted this data and forwarded it to a synthezizer which created the final audio outupt. The task was to set the process of boarding a car to sound. (Sensors were placed in the door (open and close), the seat (sit down) and the security belt (closing)). A research revealed, that the design of car shapes incline more and more organic features in future sketches. This project tries to apply this paradigm shift to the world of sounds. Three organic sound-skins were developped: liquid, bone and earthy.",
+       pics: []
    },
-   {
-       id: 'Digital Elements',
-       image: '/images/7.png'
+      {
+       id: "iPad Media control",
+       image: "/images/1.png",
+       subtitle: "<strong>Get rid of your remote controls!</strong>",
+       date: 2012,
+       author: "Dominik Schlaepfer",
+       coffee: "123 cups",
+       descr: "...",
+       pics: []
    },
-   {
-       id: 'Dynament',
-       image: '/images/8.png'
+      {
+       id: "Encoding Space",
+       image: "/images/1.png",
+       subtitle: "A digital, artistic abstraction of space!",
+       date: 2007,
+       author: "Dominik Schlaepfer",
+       coffee: "80 cups",
+       descr: "Starting point in this project is a public space of about 100m in the city of Zurich. This space is analysed, segemented and in different steps digitalized. The digitalized abstractions are set together and animated. The space in its abstraction should be experienced with the animation. In this project the space featured is a 100 meter space at Langstrasse in Zurich. ",
+       pics: []
    },
-   {
-       id: 'Web Clipper',
-       image: '/images/0.png'
-   }
+      {
+       id: "Black Box",
+       image: "/images/1.png",
+       subtitle: "Physical Computing meets Interaction Design",
+       date: 2009,
+       author: "Dominik Schlaepfer, Alex Meier",
+       coffee: "120+ cups",
+       descr: "Black Box is, as the name suggests a black box from which only the measures are given. The task was to give the box functionality. The concept of our project was to create a black box equipped with a light-sensor, that could, while moving it around like a computer mouse, distinguish between black and white surfaces and give the user a haptic feedback about it.",
+       pics: []
+   },
+      {
+       id: "Web Clipper",
+       image: "/images/1.png",
+       subtitle: "Memonic Webclipper Redesign",
+       date: 2010,
+       author: "Dominik Schlaepfer",
+       coffee: "20 cups",
+       descr: "The context of this project was an assessment-task for Memonic (Webclipping Software Company). My project focuses on the concept of a horizontal and vertical alignment of the Webclipper-Toolbar. Depending on the content it is important for the user to have the choice where to align the toolbar so it does not interfere with the content.",
+       pics: []
+   },
+      {
+       id: "Screen Typo",
+       image: "/images/1.png",
+       subtitle: "A visionary <strong>synchronoptic</strong> program header for arte TV",
+       date: 2008,
+       author: "Dominik Schlaepfer",
+       coffee: "34 cups",
+       descr: "Screentypography features a synchronoptic program header for arte TV. The challenge is to present the TV-program and its contents (pictures, program-information, meta-data) in a user friendly and easily accessible way. The project uses the wheel as a time metaphor and provides the user with a micro and macro view to switch inbetween.",
+       pics: []    }
    ],
    arrangements: [{
       name: 'linear'
