@@ -50,6 +50,10 @@ Portfolio.prototype = Object.create(Node.prototype);
 Portfolio.prototype.onReceive = function onReceive(type,ev){
     if(ev.node.eventTrigger == "Cancel"){
         this.header.title.removeChild(ev.node);
+        // debugger;
+        // this.header.removeChild(this.header.imagecontainer);
+        this.header.removeChild(this.header.imagecontainer);
+        this.header.removeChild(this.header.descriptionContainer);
         // delete this.header.cancelBtn;
         this.header.position.set(0,-700,0,{duration:500,curve: Curves.outElastic});
         this.projects.setPosition(0,0,0);

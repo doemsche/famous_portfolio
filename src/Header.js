@@ -43,38 +43,9 @@ Header.prototype = Object.create(Node.prototype);
 
 Header.prototype.swapData = function swapData(data){
     this.titleEl.setContent(data.id);
-    this.showCancelBtn()
-    // this.descr = this.addChild();
-    // this.descr.setSizeMode('relative','absolute','absolute')
-    //           .setAbsoluteSize(undefined,80,0)
-    // this.descrEl = new DOMElement(this.descr).setContent(data.descr)
-    //                                         .setProperty('background-color', '#333')
-    //                                          .setProperty('fontSize', '30px')
-    //                                          .setProperty('color', 'white')
-    //                                          .setProperty('text-shadow', '1px 1px #444')
-    // this.descrPosition = new Position(this.descr)
-    // this.descrOpacity = new Opacity(this.descr);
-    // this.descrOpacity.set(0);
-    // this.descrPosition.set(0,100,0,{duration:1000})
-    // this.descrOpacity.set(0.4,{duration:1000})
-
-    //     this.descr2 = this.addChild();
-    // this.descr2.setSizeMode('relative','absolute','absolute')
-    //           .setAbsoluteSize(undefined,80,0)
-    // this.descrEl2 = new DOMElement(this.descr2).setContent(data.descr)
-    //                                         .setProperty('background-color', '#333')
-    //                                          // .setProperty('fontSize', '30px')
-    //                                          .setProperty('color', 'white')
-    //                                          .setProperty('text-shadow', '1px 1px #444')
-
-
-    //     this.descrPosition2 = new Position(this.descr2)
-    // this.descrOpacity2 = new Opacity(this.descr2);
-    // this.descrOpacity2.set(0);
-    // this.descrPosition2.set(0,200,0,{duration:1000})
-    // this.descrOpacity2.set(0.8,{duration:1400}, function(){
-    //     this.showCancelBtn();
-    // }.bind(this))
+    this.showCancelBtn();
+    this.showImages();
+    this.showDescription();
 };
 
 Header.prototype.showCancelBtn = function showCancelBtn(){
@@ -88,6 +59,42 @@ Header.prototype.showCancelBtn = function showCancelBtn(){
                                                     // .setProperty('background-color','red');
     this.cancelPosition = new Position(this.cancelBtn);
     this.cancelPosition.set(100,0,0,{duration:500,curve: Curves.outElastic})
+};
+
+Header.prototype.showImages = function showImage(){
+
+    this.imagecontainer = this.addChild();
+    for(var i= 0; i < this.data.pics.length; i++){
+        var imgpath = this.data.pics[i]
+        var image = this.imagecontainer.addChild();
+        image.setSizeMode('absolute','absolute','absolute');
+        image.setAbsoluteSize(100,100,0)
+        image.position = new Position(image);
+        image.opacity = new Opacity(image);
+        image.opacity.set(0);
+        image.opacity.set(1,{duration:i*300})
+        image.position.set(i*150+80+i*10,200,0,{duration: i*180})
+        var imageEl = new DOMElement(image)
+                            .setContent('<img width=150px src='+imgpath+' />')    
+    }
+    this.imagecontainer.setAlign(0,.1)
+    // this.imagecontainer.setMountPoint(.5,.5)
+};
+
+Header.prototype.showDescription = function showDescription(){
+    this.descriptionContainer = this.addChild();
+    this.descriptionContainer.setSizeMode('absolute','absolute','absolute');
+    this.descriptionContainer.setAbsoluteSize(500,200);
+    var descrposition = new Position(this.descriptionContainer);
+    descrposition.set(90,430,0);
+    var descriptionopacity = new Opacity(this.descriptionContainer)
+    descriptionopacity.set(0);
+    descriptionopacity.set(1,{duration: 1000})
+    var descrEl = new DOMElement(this.descriptionContainer)
+                                .setProperty('color', '#333')
+                                .setProperty('font-size', '20px')
+                                .setContent(this.data.descr);
+
 };
 
 Header.prototype.extend = function extend(data){
