@@ -13,12 +13,11 @@ var COLOR_STEPS = 18;
 var DOT_SIZE = 45;
 // the footer will hold the nav buttons
 function Projects () {
-    // subclass Node
     Node.call(this);
-    // object to store the buttons
     var count = 0,
      	rows = 3,
      	cols=3;
+
     this.projects = [];
     for (var row = 0; row < rows; row++) {
         for (var col = 0; col < cols; col++) {
@@ -27,73 +26,22 @@ function Projects () {
             this.projects.push(project);
         }
     }
-    _bindEvents.call(this);
+
     this
         .setMountPoint(0.5, 0.5, 0.5)
         .setAlign(0.5, 0.5, 0.5)
         .setOrigin(0.5, 0.5, 0.5)
         .setPosition(0, 0, 300);
-        // debugger;
+
     this.settingsWindow = new SettingsWindow();
-    _makeSettings.call(this);
-
-    // debugger;
-    var resizeComponent = {
-        onSizeChange: function(x, y, z) {
-            // console.log(x)
-            if(x < 500){this.arrangeAsGrid()}
-            if(x > 700){this.arrangeAsCircle()}
-
-            //this.arrangeAsCircle()
-            // console.log(arguments)
-                // This will layout the dots whenever a resize occurs
-                //this.layoutDots([x, y, z])
-                // Size === [parent size, 20, parent size]
-            }.bind(this)
-    };
-
-    // this.addComponent(resizeComponent);
    
 }
 
-function _makeSettings(){
-    // debugger;
-    this.addChild()
-        .setSizeMode('absolute', 'absolute')
-        .setAbsoluteSize(300, 300)
-        .setMountPoint(0.5,0.5)
-        .setPosition(undefined,undefined,300)
-        .setAlign(0.5,0.5)
-        .addChild( this.settingsWindow );
-}
-
-function _bindEvents() {
-    this.addEventListener('keydown', function(e) {
-
-        if (e.keyCode === 39) {debugger;this.settingsWindow.hide()}//hide
-        if (e.keyCode === 37) {this.settingsWindow.show()}//show
-    }.bind(this));   
-}
-
-function _bindEvents() {
-   
-    window.addEventListener('keydown', function(e) {
-        if (e.keyCode === 39) {this.settingsWindow.show()}
-        if (e.keyCode === 37) {this.settingsWindow.hide()}
-    }.bind(this));
-}
-
-// subclass Node
 Projects.prototype = Object.create(Node.prototype);
 
 Projects.prototype.onReceive = function onReceive(type,ev){
-   if(type === 'keyup'){
-        debugger;
-        // return;
-   }
    var arrangement = ev.node.name;
-   switch(arrangement){
-        
+   switch(arrangement){      
         case 'linear':
             this.arrangeAsLinear();
         break;        
@@ -130,8 +78,7 @@ Projects.prototype.arrangeAsGrid = function arrangeAsGrid(){
         var polarity = Math.random() < 0.5 ? -1 : 1;
         var x = bounds[0] + ((dimension) * col++);
         var y = bounds[1] + ((dimension) * row);
-        console.log('x')
-        console.log(x)
+
         var z = (randomizePositionZ) ? Math.floor(Math.random() * 80) * polarity : 0;
         p.position.set(x, y, z, {
             duration: i*10 + duration,
@@ -159,16 +106,15 @@ Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
     }
 };
 Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
-    this.projects.shuffle()
-    // debugger;
-    var width = window.innerWidth;
-    var offset = - (width / 2);
+    this.projects.shuffle();
 
+    var width = window.innerWidth;
+    var consumption = width- 9*80;
 
     for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
-        var x = offset+120;
-        p.position.set(x+i*100,0,0,{duration:800, curve: Curves.outElastic});
+        var x = -consumption/2+ i*(80+15);
+        p.position.set(x,0,0,{duration:800, curve: Curves.outElastic});
 
     }
 };
