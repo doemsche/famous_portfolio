@@ -34,32 +34,15 @@ function Projects () {
         .setAlign(0.5, 0.5, 0.5)
         .setOrigin(0.5, 0.5, 0.5)
         .setPosition(0, 0, 300);
-        // debugger;
+
     this.settingsWindow = new SettingsWindow();
     _makeSettings.call(this);
     _makeDetail.call(this);
-    // debugger;
-    var resizeComponent = {
-        onSizeChange: function(x, y, z) {
-            // console.log(x)
-            if(x < 500){this.arrangeAsGrid()}
-            if(x > 700){this.arrangeAsCircle()}
-
-            //this.arrangeAsCircle()
-            // console.log(arguments)
-                // This will layout the dots whenever a resize occurs
-                //this.layoutDots([x, y, z])
-                // Size === [parent size, 20, parent size]
-            }.bind(this)
-    };
-   
-    // this.addComponent(resizeComponent);
    
 }
 
 
 function _makeSettings(){
-    // debugger;
     this.addChild()
         .setSizeMode('absolute', 'absolute')
         .setAbsoluteSize(300, 300)
@@ -123,14 +106,7 @@ Projects.prototype.onReceive = function onReceive(type,ev){
     
     return;
    };
-   // debugger;
-   // if(type === 'click' && ev.node.eventTrigger === 'Project'){
-   //      var projectName = ev.node.trigger;
-   //      // debugger;
-   //      this.projectDetail.swapContent(projectName);
-   //      this.projectDetail.show();
-   //      return;
-   // }
+
    var arrangement = ev.node.name;
    switch(arrangement){
         case 'linear':
@@ -198,18 +174,15 @@ Projects.prototype.arrangeAsCircle = function arrangeAsCircle(){
     }
 };
 Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
-    this.projects.shuffle()
-    // debugger;
-    var width =  window.innerWidth;
-    var offset = - (width / 2);
+    this.projects.shuffle();
+
+    var width = window.innerWidth;
+    var consumption = width- 9*80;
 
     for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
-        // p.setAlign(00.5,02
-        var x = offset+280;
-        // var x = 0;
-        console.log(x)
-        p.position.set(x+i*100,0,0,{duration:800, curve: Curves.outElastic});
+        var x = -consumption/2+ i*(80+15);
+        p.position.set(x,0,0,{duration:800, curve: Curves.outElastic});
 
     }
 };
@@ -362,11 +335,8 @@ SineWaver.prototype.onUpdate = function(time){
 function GiantWheel(node,i){
     this.node = node;
     this.angle = 0;
-
-    // this.centerX = 200;
-    // this.centerY = 200; 
     this.radius = 130;
-    this.speed = i*0.01/20+0.02;
+    this.speed = i*0.05/2+0.6;
     this.id = this.node.addComponent(this);
     this.node.requestUpdate(this.id);
 }
@@ -375,9 +345,6 @@ GiantWheel.prototype.onUpdate = function(time){
     this.node.position.set(Math.sin(this.angle)*this.radius,+Math.cos(this.angle)*this.radius,0)
     this.angle += this.speed;
     this.node.requestUpdate(this.id);
-      // ball.x = centerX + Math.sin(angle) * radius;
-      //                 ball.y = centerY + Math.cos(angle) * radius;
-      //                 angle += speed;
 };
 
 
