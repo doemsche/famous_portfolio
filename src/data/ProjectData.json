@@ -42,10 +42,10 @@
    }
    ],
    arrangements: [{
-      name: 'grid'
+      name: 'footer 1'
    },{
-      name: 'circle'
+      name: 'footer 2'
     },{
-      name: 'sphere'
+      name: 'footer 3'
     }]
 };

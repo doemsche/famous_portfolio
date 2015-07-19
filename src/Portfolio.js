@@ -12,7 +12,7 @@ function Portfolio(mount) {
 
     makeHeader(this);
     makeFooter(this);
-    makeSwapper(this);
+    makeProjects(this);
 }
 
 function makeHeader (node) {
@@ -24,10 +24,10 @@ function makeHeader (node) {
 }
 
 
-function makeSwapper (node) {
+function makeProjects (node) {
     node.addChild()
         .setDifferentialSize(null, -200, null)
-        .setPosition(0, 100)
+        .setAlign(0.5,.5)
         .addChild(new Projects(projectData));
 }
 
@@ -44,28 +44,6 @@ function makeFooter (node) {
 
 // Extend the prototype
 Portfolio.prototype = Object.create(Node.prototype);
-
-// Twitterus.prototype.onReceive = function onReceive (event, payload) {
-//     // if the event is click then we know
-//     // that a NavButton was clicked
-//     // (NavButtons are the only element)
-//     // With the click event.
-//     if (event === 'click') {
-//         if(payload.node.eventTrigger == 'Project'){
-//         //     var trigger = payload.node.trigger;
-//             this.emit('changeScene', {trigger:payload.node.trigger});
-//             return;
-//         }
-//         // get the id of the nav button
-//         var to = payload.node.getName();
-//         this.emit('changeArrangement', {
-//             from: this.currentArrangement,
-//             to: to
-//         });
-//         this.currentArrangement = to;
-//     }
-
-// };
 
 
 module.exports = Portfolio;

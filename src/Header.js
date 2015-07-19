@@ -15,7 +15,7 @@ function Header(){
                                              .setProperty('fontSize', '30px')
                                              .setProperty('color', 'white')
                                              .setProperty('text-shadow', '1px 1px #444')
-                                             .setContent('Portfolio');
+                                             .setContent('Header');
 
 
 
@@ -23,25 +23,5 @@ function Header(){
 }
 
 Header.prototype = Object.create(Node.prototype);
-
-// Header.prototype.onReceive = function onReceive (event, payload) {
-//     if (event === 'changeSection') {
-//     	 this.changeSection(payload.to);
-//         // we will uncomment this in the next section
-//         //this.changeSection(payload.to);
-//     }
-// };
-
-// Header.prototype.changeSection = function changeSection(to){
-//     this.titleAlign.set(0, -1, 0, {duration: 250}, function () {
-//         // while the title is off screen
-//         // change the content
-//         this.titleEl.setContent(to);
-
-//         // align 0, 0, 0 places the title back into its parent
-//         // exactly
-//         this.titleAlign.set(0, 0, 0, {duration: 250});
-//     }.bind(this));
-// }
 
 module.exports = Header;
