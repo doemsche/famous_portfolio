@@ -336,7 +336,7 @@ function GiantWheel(node,i){
     this.node = node;
     this.angle = 0;
     this.radius = 130;
-    this.speed = i*0.05/2+0.6;
+    this.speed = i*0.01/20+0.02;
     this.id = this.node.addComponent(this);
     this.node.requestUpdate(this.id);
 }
