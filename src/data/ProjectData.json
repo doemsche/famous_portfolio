@@ -93,10 +93,6 @@
        pics: []    }
    ],
    arrangements: [{
-      name: 'linear'
-   },{
-      name: 'grid'
-    },{
-      name: 'circle'
+      name: 'Start Physics Engine'
     }]
 };
