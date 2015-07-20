@@ -177,12 +177,14 @@ Projects.prototype.arrangeAsLinear = function arrangeAsLinear(){
     this.projects.shuffle();
 
     var width = window.innerWidth;
+
     var consumption = width- 9*80;
 
     for(var i = 0; i < this.projects.length; i++) {
         var p = this.projects[i];
-        var x = -consumption/2+ i*(80+15);
-        p.position.set(x,0,0,{duration:800, curve: Curves.outElastic});
+        // var x = -consumption/2+ i*(80+15);
+        var x = (width/2) - ((95*9)/2);
+        p.position.set(-x+i*95,0,0,{duration:800, curve: Curves.outElastic});
 
     }
 };
